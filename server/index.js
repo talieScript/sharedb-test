@@ -28,17 +28,18 @@ var connection = share.connect();
 
 // Create initial documents
 var connection = share.connect();
-connection.createFetchQuery('players', {}, {}, function(err, results) {
+connection.createFetchQuery('Data', {}, {}, function(err, results) {
   if (err) {
     throw err;
   }
 
     if (results.length === 0) {
-        const test = {
-            test: 'here',
-        }
-        const doc = connection.get('test')
+        var names = ['Ada Lovelace', 'Grace Hopper', 'Marie Curie',
+      'Carl Friedrich Gauss', 'Nikola Tesla', 'Claude Shannon'];
 
-        doc.create(test);
+
+      var doc = connection.get('players');
+      var data = {name: 'Talie' };
+      doc.create(data);
     }
 });
