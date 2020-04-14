@@ -15,4 +15,30 @@ app.use(express.static('static'));
 var server = http.createServer(app);
 var wss = new WebSocket.Server({server: server});
 server.listen(8080);
-console.log('Listening on http://localhost:8080');
+console.log('Listening on 8080');
+
+// Connect any incoming WebSocket connection with ShareDB
+wss.on('connection', function(ws) {
+    console.log('New connection')
+    var stream = new WebSocketJSONStream(ws);
+    share.listen(stream);
+});
+
+var connection = share.connect();
+
+// Create initial documents
+var connection = share.connect();
+connection.createFetchQuery('players', {}, {}, function(err, results) {
+  if (err) {
+    throw err;
+  }
+
+    if (results.length === 0) {
+        const test = {
+            test: 'here',
+        }
+        const doc = connection.get('test')
+
+        doc.create(test);
+    }
+});
