@@ -14,8 +14,8 @@ var app = express();
 app.use(express.static('static'));
 var server = http.createServer(app);
 var wss = new WebSocket.Server({server: server});
-server.listen(8080);
-console.log('Listening on 8080');
+server.listen(8085);
+console.log('Listening on 8085');
 
 // Connect any incoming WebSocket connection with ShareDB
 wss.on('connection', function(ws) {
@@ -34,12 +34,9 @@ connection.createFetchQuery('Data', {}, {}, function(err, results) {
   }
 
     if (results.length === 0) {
-        var names = ['Ada Lovelace', 'Grace Hopper', 'Marie Curie',
-      'Carl Friedrich Gauss', 'Nikola Tesla', 'Claude Shannon'];
+        const form = { vessel: 'RMS Titanic', destination: [], windSpeed: 0};
 
-
-      var doc = connection.get('players');
-      var data = {name: 'Talie' };
-      doc.create(data);
+        const doc = connection.get('forms', '');
+        doc.create(form);
     }
 });
